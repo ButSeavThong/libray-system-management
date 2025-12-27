@@ -1,9 +1,10 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
-import { BookCard } from "@/components/book-card"
+// import { BookCard } from "@/components/book-card"
 import { DashboardHeader } from "@/components/dashboard-header"
 import { BorrowedBooksList } from "@/components/borrowed-books-list"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { BookCard } from "@/components/books/book-card"
 
 export default async function DashboardPage() {
   const supabase = await createClient()
