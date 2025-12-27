@@ -9,11 +9,11 @@ export async function borrowBook(bookId: string, userId: string) {
     // Check if user already has this book borrowed
     // Use .maybeSingle() to avoid errors when no record exists
     const { data: existingBorrow } = await supabase
-      .from('borrows')
-      .select('id')
-      .eq('user_id', userId)
-      .eq('book_id', bookId)
-      .is('return_date', null)
+      .from("borrows")
+      .select("id")
+      .eq("user_id", userId)
+      .eq("book_id", bookId)
+      .is("return_date", null)
       .single()
 
     if (existingBorrow) {
@@ -29,7 +29,7 @@ export async function borrowBook(bookId: string, userId: string) {
 
     // Calculate due date (14 days from now)
     const dueDate = new Date()
-    dueDate.setDate(dueDate.getDate() + 14)
+    dueDate.setDate(dueDate.getDate() - 14)
 
     // Create borrow record
     const { error: borrowError } = await supabase.from("borrows").insert({
@@ -37,7 +37,7 @@ export async function borrowBook(bookId: string, userId: string) {
       user_id: userId,
       borrow_date: new Date().toISOString(),
       due_date: dueDate.toISOString(),
-      status: "active",
+      status: "borrowed",
     })
 
     if (borrowError) {
