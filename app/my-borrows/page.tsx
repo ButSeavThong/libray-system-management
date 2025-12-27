@@ -27,7 +27,7 @@ export default async function MyBorrowsPage() {
     .eq("user_id", user.id)
     .order("borrow_date", { ascending: false })
 
-  const activeBorrows = borrows?.filter((b) => b.status === "active") || []
+  const activeBorrows = borrows?.filter((b) => b.status === "borrowed") || []
   const returnedBorrows = borrows?.filter((b) => b.status === "returned") || []
   const overdueBorrows = activeBorrows.filter((b) => new Date(b.due_date) < new Date())
 
