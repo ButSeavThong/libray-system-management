@@ -47,62 +47,67 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-library-dashboard p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1 text-center">
-          <div className="flex justify-center mb-2 text-library-primary">
-            <Library className="h-10 w-10" />
+    <div className='flex min-h-screen items-center justify-center bg-library-dashboard p-4'>
+      <Card className='w-full max-w-md'>
+        <CardHeader className='space-y-1 text-center'>
+          <div className='flex justify-center mb-2 text-library-primary'>
+            <Library className='h-10 w-10' />
           </div>
-          <CardTitle className="text-2xl">Create an account</CardTitle>
-          <CardDescription>Join the library system to start borrowing books</CardDescription>
+          <CardTitle className='text-2xl'>Create an account</CardTitle>
+          <CardDescription>
+            Join the library system to start borrowing books
+          </CardDescription>
         </CardHeader>
-        <form onSubmit={handleRegister}>
-          <CardContent className="space-y-4">
+        <form onSubmit={handleRegister} className='flex flex-col gap-5'>
+          <CardContent className='space-y-4'>
             {error && (
-              <Alert variant="destructive">
+              <Alert variant='destructive'>
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            <div className="space-y-2">
-              <Label htmlFor="fullName">Full Name</Label>
+            <div className='space-y-2'>
+              <Label htmlFor='fullName'>Full Name</Label>
               <Input
-                id="fullName"
-                type="text"
-                placeholder="John Doe"
+                id='fullName'
+                type='text'
+                placeholder='John Doe'
                 value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                onChange={e => setFullName(e.target.value)}
                 required
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+            <div className='space-y-2'>
+              <Label htmlFor='email'>Email</Label>
               <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
+                id='email'
+                type='email'
+                placeholder='m@example.com'
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 required
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+            <div className='space-y-2'>
+              <Label htmlFor='password'>Password</Label>
               <Input
-                id="password"
-                type="password"
+                id='password'
+                type='password'
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 required
               />
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
-            <Button className="w-full" type="submit" disabled={isLoading}>
-              {isLoading ? "Creating account..." : "Register"}
+          <CardFooter className='flex flex-col space-y-4'>
+            <Button className='w-full' type='submit' disabled={isLoading}>
+              {isLoading ? 'Creating account...' : 'Register'}
             </Button>
-            <div className="text-center text-sm">
-              Already have an account?{" "}
-              <Link href="/auth/login" className="text-library-primary hover:underline font-medium">
+            <div className='text-center text-sm'>
+              Already have an account?{' '}
+              <Link
+                href='/auth/login'
+                className='text-library-primary hover:underline font-medium'
+              >
                 Sign In
               </Link>
             </div>
