@@ -24,7 +24,7 @@ interface Book {
 
 export function BookCard({ book, userId }: { book: Book; userId: string }) {
   return (
-    <Card className='group flex flex-col overflow-hidden transition-shadow hover:shadow-lg'>
+    <Card className='group flex flex-col justify-between overflow-hidden transition-shadow hover:shadow-lg m-0 pt-0'>
       <Link
         href={`/books/${book.id}`}
         className='relative overflow-hidden bg-muted max-h-100'
@@ -49,21 +49,23 @@ export function BookCard({ book, userId }: { book: Book; userId: string }) {
             : 'Out of Stock'}
         </Badge>
       </Link>
-      <CardHeader className=''>
-        <CardTitle className='line-clamp-2 text-balance text-lg'>
-          {book.title}
-        </CardTitle>
-        <CardDescription className='line-clamp-1'>
-          {book.author}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className=''>
-        {book.category && (
-          <Badge variant='outline' className='text-xs'>
-            {book.category}
-          </Badge>
-        )}
-      </CardContent>
+      <div className='flex flex-col gap-2'>
+        <CardHeader className=''>
+          <CardTitle className='line-clamp-2 text-balance text-lg'>
+            {book.title}
+          </CardTitle>
+          <CardDescription className='line-clamp-1'>
+            {book.author}
+          </CardDescription>
+        </CardHeader>
+        <CardContent className=''>
+          {book.category && (
+            <Badge variant='outline' className='text-xs'>
+              {book.category}
+            </Badge>
+          )}
+        </CardContent>
+      </div>
       <CardFooter className=''>
         <Button asChild className='w-full bg-transparent' variant='outline'>
           <Link href={`/books/${book.id}`}>
