@@ -32,13 +32,13 @@ export default async function MyBorrowsPage() {
   const overdueBorrows = activeBorrows.filter((b) => new Date(b.due_date) < new Date())
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-8">
-            <Link href="/books" className="flex items-center gap-2">
-              <Library className="h-6 w-6 text-primary" />
-              <span className="text-lg font-semibold">Library System</span>
+    <div className='min-h-screen bg-background'>
+      <header className='sticky top-0 z-50 border-b bg-card/95 backdrop-blur supports-backdrop-filter:bg-card/60'>
+        <div className='container mx-auto flex h-16 items-center justify-between px-4'>
+          <div className='flex items-center gap-8'>
+            <Link href='/books' className='flex items-center gap-2'>
+              <Library className='h-6 w-6 text-primary' />
+              <span className='text-lg font-semibold'>Library System</span>
             </Link>
             <MainNav />
           </div>
@@ -46,45 +46,59 @@ export default async function MyBorrowsPage() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight">My Borrowed Books</h1>
-          <p className="mt-1 text-muted-foreground">Track and manage your library loans</p>
+      <div className='container mx-auto px-4 py-8'>
+        <div className='mb-8'>
+          <h1 className='text-3xl font-bold tracking-tight'>
+            My Borrowed Books
+          </h1>
+          <p className='mt-1 text-muted-foreground'>
+            Track and manage your library loans
+          </p>
         </div>
 
-        <div className="grid gap-6">
+        <div className='grid gap-6'>
           {/* Stats Cards */}
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className='grid gap-4 md:grid-cols-3'>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Active Loans</CardTitle>
-                <BookOpen className="h-4 w-4 text-muted-foreground" />
+              <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+                <CardTitle className='text-sm font-medium'>
+                  Active Loans
+                </CardTitle>
+                <BookOpen className='h-4 w-4 text-muted-foreground' />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{activeBorrows.length}</div>
-                <p className="text-xs text-muted-foreground">Currently borrowed</p>
+                <div className='text-2xl font-bold'>{activeBorrows.length}</div>
+                <p className='text-xs text-muted-foreground'>
+                  Currently borrowed
+                </p>
               </CardContent>
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Overdue</CardTitle>
-                <Calendar className="h-4 w-4 text-muted-foreground" />
+              <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+                <CardTitle className='text-sm font-medium'>Overdue</CardTitle>
+                <Calendar className='h-4 w-4 text-muted-foreground' />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-destructive">{overdueBorrows.length}</div>
-                <p className="text-xs text-muted-foreground">Past due date</p>
+                <div className='text-2xl font-bold text-destructive'>
+                  {overdueBorrows.length}
+                </div>
+                <p className='text-xs text-muted-foreground'>Past due date</p>
               </CardContent>
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Returned</CardTitle>
-                <BookOpen className="h-4 w-4 text-muted-foreground" />
+              <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+                <CardTitle className='text-sm font-medium'>
+                  Total Returned
+                </CardTitle>
+                <BookOpen className='h-4 w-4 text-muted-foreground' />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{returnedBorrows.length}</div>
-                <p className="text-xs text-muted-foreground">All time</p>
+                <div className='text-2xl font-bold'>
+                  {returnedBorrows.length}
+                </div>
+                <p className='text-xs text-muted-foreground'>All time</p>
               </CardContent>
             </Card>
           </div>
@@ -93,7 +107,9 @@ export default async function MyBorrowsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Active Loans</CardTitle>
-              <CardDescription>Books you currently have borrowed</CardDescription>
+              <CardDescription>
+                Books you currently have borrowed
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <MyBorrowsList borrows={activeBorrows} />
@@ -108,7 +124,10 @@ export default async function MyBorrowsPage() {
                 <CardDescription>Previously borrowed books</CardDescription>
               </CardHeader>
               <CardContent>
-                <MyBorrowsList borrows={returnedBorrows} showReturnButton={false} />
+                <MyBorrowsList
+                  borrows={returnedBorrows}
+                  showReturnButton={false}
+                />
               </CardContent>
             </Card>
           )}
