@@ -25,7 +25,7 @@ export default async function AdminBooksPage() {
 
   return (
     <div className="flex min-h-screen bg-muted/40">
-      <AdminSidebar />
+      <AdminSidebar/>
       <div className="flex flex-1 flex-col">
         <AdminHeader user={user} />
         <main className="flex-1 space-y-4 p-8 pt-6">
