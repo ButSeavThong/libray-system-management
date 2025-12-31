@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { BookOpen, Eye } from 'lucide-react'
+import Image from 'next/image'
 
 interface Book {
   id: string
@@ -30,9 +31,11 @@ export function BookCard({ book, userId }: { book: Book; userId: string }) {
         className='relative overflow-hidden bg-muted max-h-100'
       >
         {book.cover_image ? (
-          <img
-            src={book.cover_image || '/placeholder.svg'}
+          <Image
+            src={book.cover_image ?? '/placeholder.svg'}
             alt={book.title}
+            width={100}
+            height={100}
             className='h-50 w-full object-contain transition-transform group-hover:scale-105'
           />
         ) : (
