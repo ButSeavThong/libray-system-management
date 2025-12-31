@@ -21,10 +21,14 @@ export async function borrowBook(bookId: string, userId: string) {
     }
 
     // Check if book is available
-    const { data: book } = await supabase.from("books").select("available_copies, title").eq("id", bookId).single()
+    const { data: books } = await supabase
+      .from('books')
+      .select('available_copies, title')
+      .eq('id', bookId)
+      .single()
 
-    if (!book || book.available_copies <= 0) {
-      return { error: "This book is currently unavailable" }
+    if (!books || books.available_copies <= 0) {
+      return { error: 'This book is currently unavailable' }
     }
 
     // Calculate due date (14 days from now)
@@ -48,7 +52,7 @@ export async function borrowBook(bookId: string, userId: string) {
     // Decrease available copies
     const { error: updateError } = await supabase
       .from('books')
-      .update({ available_copies: book.available_copies - 1 })
+      .update({ available_copies: books.available_copies - 1 })
       .eq('id', bookId)
 
     if (updateError) {

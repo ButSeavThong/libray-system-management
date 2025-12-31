@@ -31,14 +31,14 @@ export function DashboardHeader({
   }
 
   return (
-    <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
+    <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60'>
       <div className='container flex h-16 items-center justify-between px-4 mx-auto'>
         <div className='flex items-center gap-2'>
           <div className='rounded-lg bg-primary p-1 text-primary-foreground'>
             <Library className='h-6 w-6' />
           </div>
           <span className='text-xl font-bold tracking-tight'>
-            <Link href='/'>LibManager</Link>
+            <Link href='/'>E-Library System</Link>
           </span>
         </div>
 
