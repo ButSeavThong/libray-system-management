@@ -1,12 +1,11 @@
-import { notFound } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
-import { requireAuth } from '@/lib/auth'
 import { BookDetailView } from '@/components/books/book-detail-view'
-import { ArrowLeft, Library } from 'lucide-react'
-import Link from 'next/link'
+import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
-import { MainNav } from '@/components/layout/main-nav'
-import { UserNav } from '@/components/layout/user-nav'
+import { requireAuth } from '@/lib/auth'
+import { createClient } from '@/lib/supabase/server'
+import { ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
 
 interface PageProps {
   params: Promise<{
@@ -41,19 +40,7 @@ export default async function BookDetailPage({ params }: PageProps) {
 
   return (
     <div className='min-h-screen bg-background'>
-      <header className='sticky top-0 z-50 border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60'>
-        <div className='container mx-auto flex h-16 items-center justify-between px-4'>
-          <div className='flex items-center gap-8'>
-            <Link href='/books' className='flex items-center gap-2'>
-              <Library className='h-6 w-6 text-primary' />
-              <span className='text-lg font-semibold'>Library System</span>
-            </Link>
-            <MainNav />
-          </div>
-          <UserNav user={user} />
-        </div>
-      </header>
-
+      <Header user={user}/>
       <div className='container mx-auto px-8 py-8'>
         <Button variant='secondary' size='sm' asChild className='mb-6'>
           <Link href='/books' className='gap-2'>

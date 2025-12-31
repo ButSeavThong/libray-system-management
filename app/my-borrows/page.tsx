@@ -1,11 +1,9 @@
-import { createClient } from "@/lib/supabase/server"
-import { requireAuth } from "@/lib/auth"
+import Header from "@/components/header"
 import { MyBorrowsList } from "@/components/my-borrows/my-borrows-list"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { BookOpen, Calendar, Library } from "lucide-react"
-import Link from "next/link"
-import { MainNav } from "@/components/layout/main-nav"
-import { UserNav } from "@/components/layout/user-nav"
+import { requireAuth } from "@/lib/auth"
+import { createClient } from "@/lib/supabase/server"
+import { BookOpen, Calendar } from "lucide-react"
 
 export default async function MyBorrowsPage() {
   const user = await requireAuth()
@@ -33,19 +31,7 @@ export default async function MyBorrowsPage() {
 
   return (
     <div className='min-h-screen bg-background'>
-      <header className='sticky top-0 z-50 border-b bg-card/95 backdrop-blur supports-backdrop-filter:bg-card/60'>
-        <div className='container mx-auto flex h-16 items-center justify-between px-4'>
-          <div className='flex items-center gap-8'>
-            <Link href='/books' className='flex items-center gap-2'>
-              <Library className='h-6 w-6 text-primary' />
-              <span className='text-lg font-semibold'>Library System</span>
-            </Link>
-            <MainNav />
-          </div>
-          <UserNav user={user} />
-        </div>
-      </header>
-
+      <Header user={user}/>
       <div className='container mx-auto px-4 py-8'>
         <div className='mb-8'>
           <h1 className='text-3xl font-bold tracking-tight'>
