@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator'
 import { BookOpen, Calendar, Hash, User, Package, Loader2 } from 'lucide-react'
 import { borrowBook } from '@/app/actions/borrow'
 import { useToast } from '@/hooks/use-toast'
+import Image from 'next/image'
 
 interface Book {
   id: string
@@ -75,9 +76,11 @@ export function BookDetailView({
         <Card className='overflow-hidden pt-0 pb-2'>
           <div className='aspect-3/4 bg-muted'>
             {book.cover_image ? (
-              <img
-                src={book.cover_image || '/placeholder.svg'}
+              <Image
+                src={book.cover_image ?? '/placeholder.svg'}
                 alt={book.title}
+                width={100}
+                height={100}
                 className='h-full w-full object-cover'
               />
             ) : (
@@ -141,9 +144,9 @@ export function BookDetailView({
 
         <Separator />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Book Information</CardTitle>
+        <Card className='flex flex-col gap-2'>
+          <CardHeader className=''>
+            <CardTitle className=''>Book Information</CardTitle>
           </CardHeader>
           <CardContent className='grid gap-4'>
             {book.isbn && (
@@ -178,7 +181,7 @@ export function BookDetailView({
         </Card>
 
         {book.description && (
-          <Card>
+          <Card className='flex flex-col gap-2'>
             <CardHeader>
               <CardTitle>Description</CardTitle>
             </CardHeader>

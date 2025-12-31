@@ -9,6 +9,7 @@ import { BookOpen, Calendar, CheckCircle2, Loader2 } from 'lucide-react'
 import { format, isPast } from 'date-fns'
 import { returnBook } from '@/app/actions/borrow'
 import { useToast } from '@/hooks/use-toast'
+import Image from 'next/image'
 
 interface Borrow {
   id: string
@@ -67,7 +68,7 @@ export function MyBorrowsList({
       } else {
         toast({
           title: 'Book Returned',
-          description: `Successfully returned "${bookTitle}"`,
+          description: `Successfully returned "${bookTitle}".`,
         })
         router.refresh()
       }
@@ -108,21 +109,22 @@ export function MyBorrowsList({
       {borrows.map(borrow => {
         const isOverdue =
           isPast(new Date(borrow.due_date)) && !borrow.return_date
-
         return (
           <div
             key={borrow.id}
-            className='flex flex-col gap-4 rounded-lg border bg-card p-4 sm:flex-row sm:items-center sm:justify-between'
+            className='flex flex-col gap-4 rounded-lg border bg-card p-4 sm:flex-row sm:items-center sm:justify-between hover:shadow-md'
           >
             <div className='flex gap-4'>
               <Link
                 href={`/books/${borrow.book.id}`}
-                className='h-20 w-14 flex-shrink-0 overflow-hidden rounded bg-muted'
+                className='h-20 w-14 shrink-0 overflow-hidden rounded bg-muted'
               >
                 {borrow.book.cover_image ? (
-                  <img
-                    src={borrow.book.cover_image || '/placeholder.svg'}
+                  <Image
+                    src={borrow.book.cover_image ?? '/placeholder.svg'}
                     alt={borrow.book.title}
+                    width={100}
+                    height={100}
                     className='h-full w-full object-cover'
                   />
                 ) : (
@@ -160,7 +162,10 @@ export function MyBorrowsList({
               <div className='flex items-center gap-2 text-sm'>
                 <Calendar className='h-4 w-4 text-muted-foreground' />
                 <span className='text-muted-foreground'>
-                  {borrow.return_date ? 'Returned' : 'Due'}:{' '}
+                  {!borrow.return_date && borrow.status === 'borrowed'
+                    ? 'Due'
+                    : 'Returned'}
+                  :&nbsp;
                   <span
                     className={isOverdue ? 'font-medium text-destructive' : ''}
                   >

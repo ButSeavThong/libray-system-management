@@ -35,6 +35,17 @@ export async function borrowBook(bookId: string, userId: string) {
     const dueDate = new Date()
     dueDate.setDate(dueDate.getDate() + 14)
 
+    // Decrease available copies
+    const { error: updateError } = await supabase
+      .from('books')
+      .update({ available_copies: books.available_copies - 1 })
+      .eq('id', bookId)
+
+    if (updateError) {
+      console.error('[v0] Update book error:', updateError)
+      return { error: 'Failed to update book availability' }
+    }
+    
     // Create borrow record
     const { error: borrowError } = await supabase.from('borrows').insert({
       book_id: bookId,
@@ -47,17 +58,6 @@ export async function borrowBook(bookId: string, userId: string) {
     if (borrowError) {
       console.error('[v0] Borrow error:', borrowError)
       return { error: 'Failed to borrow book. Please try again.' }
-    }
-
-    // Decrease available copies
-    const { error: updateError } = await supabase
-      .from('books')
-      .update({ available_copies: books.available_copies - 1 })
-      .eq('id', bookId)
-
-    if (updateError) {
-      console.error('[v0] Update book error:', updateError)
-      return { error: 'Failed to update book availability' }
     }
 
     revalidatePath('/books')
@@ -76,15 +76,15 @@ export async function returnBook(borrowId: string) {
 
   try {
     // Get borrow details
-    const { data: borrow } = await supabase
+    const { data: borrows } = await supabase
       .from('borrows')
       .select('book_id, status')
       .eq('id', borrowId)
       .single()
 
-    if (!borrow || borrow.status === 'returned') {
+    if (!borrows || borrows.status === 'returned') {
       return { error: 'Invalid borrow record' }
-    }
+    } 
 
     // Update borrow record
     const { error: borrowError } = await supabase
@@ -101,23 +101,23 @@ export async function returnBook(borrowId: string) {
     }
 
     // Increase available copies
-    const { data: book } = await supabase
+    const { data: books } = await supabase
       .from('books')
       .select('available_copies')
-      .eq('id', borrow.book_id)
+      .eq('id', borrows.book_id)
       .single()
 
-    if (book) {
+    if (books) {
       await supabase
         .from('books')
-        .update({ available_copies: book.available_copies + 1 })
-        .eq('id', borrow.book_id)
+        .update({ available_copies: books.available_copies + 1 })
+        .eq('id', borrows.book_id)
     }
 
-    revalidatePath('/books')
+    // revalidatePath('/books')
     revalidatePath('/my-borrows')
 
-    return { success: true }
+    return { success: true , book: books, borrow: borrows}
   } catch (error) {
     console.error('[v0] Return book error:', error)
     return { error: 'An unexpected error occurred' }

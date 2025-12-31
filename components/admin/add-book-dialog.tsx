@@ -65,57 +65,64 @@ export function AddBookDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Plus className="mr-2 h-4 w-4" /> Add Book
+          <Plus className='mr-2 h-4 w-4' /> Add Book
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className='sm:max-w-106.25'>
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Add New Book</DialogTitle>
-            <DialogDescription>Add a new title to your library collection.</DialogDescription>
+            <DialogDescription>
+              Add a new title to your library collection.
+            </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="title" className="text-right">
+          <div className='grid gap-4 py-4'>
+            <div className='grid grid-cols-4 items-center gap-4'>
+              <Label htmlFor='title' className='text-right'>
                 Title
               </Label>
-              <Input id="title" name="title" className="col-span-3" required />
+              <Input id='title' name='title' className='col-span-3' required />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="author" className="text-right">
+            <div className='grid grid-cols-4 items-center gap-4'>
+              <Label htmlFor='author' className='text-right'>
                 Author
               </Label>
-              <Input id="author" name="author" className="col-span-3" required />
+              <Input
+                id='author'
+                name='author'
+                className='col-span-3'
+                required
+              />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="genre" className="text-right">
+            <div className='grid grid-cols-4 items-center gap-4'>
+              <Label htmlFor='genre' className='text-right'>
                 Genre
               </Label>
-              <Input id="genre" name="genre" className="col-span-3" required />
+              <Input id='genre' name='genre' className='col-span-3' required />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="isbn" className="text-right">
+            <div className='grid grid-cols-4 items-center gap-4'>
+              <Label htmlFor='isbn' className='text-right'>
                 ISBN
               </Label>
-              <Input id="isbn" name="isbn" className="col-span-3" required />
+              <Input id='isbn' name='isbn' className='col-span-3' required />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="total_copies" className="text-right">
+            <div className='grid grid-cols-4 items-center gap-4'>
+              <Label htmlFor='total_copies' className='text-right'>
                 Copies
               </Label>
               <Input
-                id="total_copies"
-                name="total_copies"
-                type="number"
-                defaultValue="1"
-                className="col-span-3"
+                id='total_copies'
+                name='total_copies'
+                type='number'
+                defaultValue='1'
+                className='col-span-3'
                 required
               />
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? "Adding..." : "Add Book"}
+            <Button type='submit' disabled={isLoading}>
+              {isLoading ? 'Adding...' : 'Add Book'}
             </Button>
           </DialogFooter>
         </form>
