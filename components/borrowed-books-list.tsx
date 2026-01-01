@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation"
 import { useToast } from "@/hooks/use-toast"
 import { format } from "date-fns"
 import { useState } from "react"
+import Image from "next/image"
 
 export function BorrowedBooksList({ borrowedBooks }: { borrowedBooks: any[] }) {
   const [returningId, setReturningId] = useState<string | null>(null)
@@ -64,38 +65,45 @@ export function BorrowedBooksList({ borrowedBooks }: { borrowedBooks: any[] }) {
 
         return (
           <Card key={item.id}>
-            <CardContent className="p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <div className="h-16 w-12 bg-muted rounded overflow-hidden flex-shrink-0">
+            <CardContent className='p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4'>
+              <div className='flex items-center gap-4'>
+                <div className='h-16 w-12 bg-muted rounded overflow-hidden shrink-0'>
                   {item.book.cover_url ? (
-                    <img
-                      src={item.book.cover_url || "/placeholder.svg"}
+                    <Image
+                      src={item.book.cover_url ?? '/placeholder.svg'}
                       alt={item.book.title}
-                      className="object-cover w-full h-full"
+                      width={100}
+                      height={100}
+                      className='object-cover w-full h-full'
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center opacity-20">
-                      <RefreshCw className="h-6 w-6" />
+                    <div className='w-full h-full flex items-center justify-center opacity-20'>
+                      <RefreshCw className='h-6 w-6' />
                     </div>
                   )}
                 </div>
                 <div>
-                  <h4 className="font-semibold">{item.book.title}</h4>
-                  <p className="text-sm text-muted-foreground">{item.book.author}</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <Badge variant={isOverdue ? "destructive" : "outline"} className="text-[10px] h-5">
-                      Due: {format(new Date(item.due_date), "MMM d, yyyy")}
+                  <h4 className='font-semibold'>{item.book.title}</h4>
+                  <p className='text-sm text-muted-foreground'>
+                    {item.book.author}
+                  </p>
+                  <div className='flex items-center gap-2 mt-1'>
+                    <Badge
+                      variant={isOverdue ? 'destructive' : 'outline'}
+                      className='text-[10px] h-5'
+                    >
+                      Due: {format(new Date(item.due_date), 'MMM d, yyyy')}
                     </Badge>
                   </div>
                 </div>
               </div>
               <Button
-                variant="outline"
-                size="sm"
+                variant='outline'
+                size='sm'
                 disabled={returningId === item.id}
                 onClick={() => handleReturn(item.id)}
               >
-                {returningId === item.id ? "Processing..." : "Return Book"}
+                {returningId === item.id ? 'Processing...' : 'Return Book'}
               </Button>
             </CardContent>
           </Card>

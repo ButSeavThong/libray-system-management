@@ -7,13 +7,13 @@ import { redirect } from 'next/navigation'
 export default async function LandingPage() {
   const user = await getCurrentUser()
 
-  if (user) {
-    if (user.role === 'ADMIN') {
-      redirect('/admin')
-    } else {
-      redirect('/books')
-    }
-  }
+  // if (user) {
+  //   if (user.role === 'USER') {
+  //     redirect('/books')
+  //   } else {
+  //     redirect('/admin')
+  //   }
+  // }
 
   const cardItems = [
     {
