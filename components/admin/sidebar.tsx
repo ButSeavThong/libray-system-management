@@ -29,7 +29,7 @@ const sidebarNavItems = [
     icon: Users,
   },
   {
-    title: 'Active borrows',
+    title: 'Borrows',
     href: '/admin/borrows',
     icon: Clock,
   },
