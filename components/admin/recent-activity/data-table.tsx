@@ -1,5 +1,4 @@
 'use client'
-
 import {
   ColumnDef,
   flexRender,
@@ -61,17 +60,27 @@ export function DataTable<TData, TValue>({
           onChange={event =>
             table.getColumn('book_title')?.setFilterValue(event.target.value)
           }
-          className='max-w-sm'
+          className='max-w-sm bg-white/50'
         />
       </div>
-      <div className='overflow-hidden rounded-md border'>
-        <Table>
+      <div className='overflow-x-auto rounded-md border'>
+        <Table className='bg-white/50'>
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      style={{
+                        width:
+                          header.getSize() !== 150
+                            ? header.getSize()
+                            : undefined,
+                        minWidth: header.getSize(),
+                        maxWidth: header.getSize(),
+                      }}
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -88,12 +97,22 @@ export function DataTable<TData, TValue>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map(row => (
                 <TableRow
-                  className='w-10'
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>
+                    <TableCell
+                      key={cell.id}
+                      style={{
+                        width:
+                          cell.column.getSize() !== 150
+                            ? cell.column.getSize()
+                            : undefined,
+                        minWidth: cell.column.getSize(),
+                        maxWidth: cell.column.getSize(),
+                      }}
+                      className='truncate'
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
