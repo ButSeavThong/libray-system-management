@@ -1,13 +1,28 @@
 'use client'
 
 import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 
 export default function AuthCallbackPage() {
+  const router = useRouter()
+  const supabase = createClient()
+
   useEffect(() => {
-    // The server route.ts will handle the session exchange
-    // This page only exists to avoid 404
-    window.location.href = '/auth/callback'
-  }, [])
+    const exchangeSession = async () => {
+      const { error } = await supabase.auth.getSession()
+
+      if (error) {
+        console.error(error)
+        return
+      }
+
+      // Supabase automatically exchanges the code in App Router
+      router.replace('/books')
+    }
+
+    exchangeSession()
+  }, [router, supabase])
 
   return <p>Confirming your email…</p>
 }
