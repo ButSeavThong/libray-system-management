@@ -22,6 +22,7 @@ export function ProfileForm({ user }: { user: UserProfile }) {
     e.preventDefault()
     setIsLoading(true)
 
+    //juybtbu8tghyiujiujim
     try {
       const result = await updateProfile(user.id, fullName)
 
